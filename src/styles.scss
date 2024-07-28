@@ -1,0 +1,36 @@
+@import "primeng/resources/themes/lara-light-blue/theme.css";
+@import "primeng/resources/primeng.css";
+@import "primeicons/primeicons.css";
+
+:root {
+  --main: #323234;
+  --white: #ffffff;
+  --black: #000;
+  --button: #3f51b5;
+  --border-color: #e0e0e0;
+  --login-box: #607d8b;
+  --br: 4px;
+}
+/* You can add global styles to this file, and also import other style files */
+input:focus-visible {
+  outline: 0ch;
+}
+* {
+  font-family: Poppins;
+  font-size: 14px;
+}
+
+.p-dialog-header {
+  padding: 6px 15px !important;
+}
+.p-dialog .p-dialog-content {
+  padding: 0px 15px 5px 15px !important;
+}
+*:focus-visible {
+  outline: -webkit-focus-ring-color auto 0px !important;
+}
+
+img {
+  height: auto;
+  max-width: 100%;
+}
