@@ -9,7 +9,7 @@ import { CustomerData } from './customer';
   styleUrls: ['./customers.component.scss']
 })
 export class CustomersComponent implements OnInit {
-  visible: boolean = false;
+  visible: boolean = true;
   customer: Customer = new Customer();
   customers: Customer[];
   searchStr: string;

@@ -44,64 +44,6 @@ a {
     }
 }
 
-.verticle_form {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-direction: column;
-    gap: 10px;
-    width: 100%;
-    label {
-        width: 100%;
-        font-size: 12px;
-        input,
-        textarea {
-            width: 100%;
-            font-size: 12px;
-            height: 30px;
-            border: 1px solid #dbdbdb;
-            border-radius: 6px;
-            padding: 0px 10px;
-        }
-        textarea {
-            height: 50px;
-            padding: 5px 10px;
-            :focus-visible {
-                outline: -webkit-focus-ring-color auto 0px !important;
-            }
-        }
-    }
-    .flexo {
-        align-items: flex-start;
-        display: flex;
-        justify-content: flex-start;
-        gap: 10px;
-        width: 100%;
-
-        button {
-            background-color: #fff;
-            border: 1px solid #dbdbdb;
-            border-radius: 4px;
-            font-size: 12px;
-            height: 25px;
-            padding: 0px 15px;
-        }
-        .active {
-            background-color: #000;
-            color: #fff;
-        }
-    }
-
-    .btn {
-        border: 1px solid #c4b5b5;
-        margin-bottom: 10px;
-        font-size: 12px;
-        &:hover {
-            background-color: #edebeb;
-        }
-    }
-}
-
 /* Just basic CSS Reset code */
 
 .site {

@@ -43,9 +43,10 @@ export class LoginComponent implements OnInit {
     console.log(`loginUser`, loginUser); 
     this.authService.loginUser(loginUser).subscribe({
       next: res => {
-        if (res && res.accessToken) {
-          localStorage.setItem('token', res.accessToken);
-          this.router.navigateByUrl('/home');
+        if (res && res.tokens && res.tokens.accessToken) {
+          localStorage.setItem('token', res.tokens.accessToken);
+          localStorage.setItem('user', JSON.stringify(res.user));
+          this.router.navigateByUrl('/customer');
           this.isSubmitted = true;
         }
       },
@@ -58,12 +59,7 @@ export class LoginComponent implements OnInit {
   registerHandler = () => {
     this.api.post('/user/add',this.registerUser).subscribe({
       next: res => {
-        console.log('res :>> ', res);
-        if (res && res.accessToken) {
-          localStorage.setItem('token', res.accessToken);
-          this.router.navigateByUrl('/home');
-          this.isSubmitted = true;
-        }
+        this.isSubmitted = true;
       },
       error: error => console.error(error),
       complete: () => {}

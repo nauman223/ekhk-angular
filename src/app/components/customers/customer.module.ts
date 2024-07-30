@@ -5,9 +5,11 @@ import { RouterModule, Routes } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms'; 
 import { DialogModule } from 'primeng/dialog';
 import { PipeDirectiveModule } from "../pipe/pipe.module";
+import { DetailComponent } from './detail/detail.component';
 
 const routes: Routes = [
-  { path: '', component: CustomersComponent },
+  { path: 'customer', component: CustomersComponent },
+  { path: 'customer/:id', component: DetailComponent },
 ];
 
 @NgModule({
@@ -19,7 +21,10 @@ const routes: Routes = [
     ReactiveFormsModule.withConfig({ warnOnNgModelWithFormControl: 'never' }),
     PipeDirectiveModule
 ],
-  declarations: [CustomersComponent]
+  declarations: [
+    CustomersComponent,
+    DetailComponent
+  ]
 })
 export class CustomerModule { }
 

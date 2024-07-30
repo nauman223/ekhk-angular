@@ -1,0 +1,131 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-12 my-2">
+      <div class="profile">
+        <span>w</span>
+        {{customer?.name}}
+      </div>
+    </div>
+
+    <div class="col-md-12 my-3">
+      <div class="collection">
+        <span>
+          <i class="pi" [class.pi-arrow-circle-up]="balance > 0" [class.pi-arrow-circle-down]="balance < 0"></i>
+          <p>
+            <strong *ngIf="balance > 0" class="green">Rs.{{balance}}</strong>
+            <strong *ngIf="balance < 0" class="red">Rs.{{balance * -1}}</strong>
+            <br>
+            <small>I have to get</small>
+          </p>
+        </span>
+
+        <div class="btns">
+          <button class="gave" (click)="visible=true">
+            <i class="pi pi-arrow-down"></i> I Gave
+          </button>
+          <button class="got" (click)="visible=true">
+            <i class="pi pi-arrow-up"></i> I Got
+          </button>
+        </div>
+
+      </div>
+    </div>
+
+
+
+
+
+
+
+
+    <div class="col-12">
+
+      <table>
+        <thead>
+          <tr>
+            <th>Date</th>
+            <th>Note</th>
+            <th>I gave</th>
+            <th>I got</th>
+            <th>Balance</th>
+          </tr>
+        </thead>
+        <tbody>
+
+          <ng-container *ngFor="let item of transections">
+            <tr>
+              <td>
+                {{item.date | date: 'fullDate'}}
+              </td>
+              <td>
+                {{item.note}}
+              </td>
+              <td>
+                {{!item.is_get ? 'Rs.'+item.price: ''}}
+              </td>
+              <td>
+                {{item.is_get ? 'Rs.'+item.price: ''}}
+              </td>
+              <td>
+                <span *ngIf="item.balance > 0" class="green">Rs.{{item.balance}}</span>
+                <span *ngIf="item.balance < 0" class="red">Rs.{{item.balance * -1}}</span>
+
+              </td>
+            </tr>
+          </ng-container>
+
+
+        </tbody>
+      </table>
+
+    </div>
+
+
+
+
+
+
+
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+<p-dialog header="Add Transection" [(visible)]="visible" [style]="{width: '300px'}">
+  <div class="verticle_form">
+
+
+
+    <label for="">
+      Price
+      <input name="Name" placeholder="Price" type="number" [(ngModel)]="transection.price" />
+    </label>
+
+    <label for="">
+      Description
+      <textarea [(ngModel)]="transection.note"></textarea>
+    </label>
+
+    <div class="flexo mb-3" style="justify-content: flex-end;">
+      <button class="gave" (click)="transection.is_get = false;addTransection()">
+        <i class="pi pi-arrow-down"></i> I Gave
+      </button>
+      <button class="got" (click)="transection.is_get = true;addTransection()">
+        <i class="pi pi-arrow-up"></i> I Got
+      </button>
+    </div>
+
+
+
+    <!-- <button class="btn">Add Customer</button> -->
+
+  </div>
+</p-dialog>

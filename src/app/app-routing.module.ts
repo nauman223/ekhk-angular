@@ -12,7 +12,7 @@ const routes: Routes = [
     )
   },
   { 
-    path: 'customer', 
+    path: '', 
     loadChildren: () =>
     import("./components/customers/customer.module").then(
       (m) => m.CustomerModule

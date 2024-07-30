@@ -69,7 +69,7 @@
         <ng-container *ngIf="customers && customers.length > 0">
           <ng-container *ngFor="let item of customers | filter_pipe:searchStr">
 
-            <div class="profile-card">
+            <a class="profile-card" routerLink="/customer/{{item.id}}">
               <div class="pc-user">
                 <div class="pc-user-image">
                   <a>
@@ -94,7 +94,7 @@
                 <a class="">To Get</a>
                 <a class="">RS. 1200</a>
               </div>
-            </div>
+            </a>
 
 
           </ng-container>
