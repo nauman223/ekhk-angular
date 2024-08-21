@@ -11,7 +11,7 @@
         justify-content: center;
         padding: 5px;
         background-color: aquamarine;
-        width: 2%;
+        width: 30px;
     }
 }
 
@@ -20,8 +20,7 @@
     justify-content: space-between;
     align-items: center;
     padding: 10px 15px;
-    border-radius: 6px;
-    background-color: rgba(255, 0, 0, 0.069);
+    border-radius: 6px; 
     span {
         display: flex;
         align-items: center;
@@ -69,6 +68,7 @@
 
 table {
     margin: auto;
+    border-radius: 8px;
     width: 100%;
     overflow: hidden;
     background-color: #fff;
@@ -83,9 +83,19 @@ table {
         border-bottom: 1px solid rgba(1, 1, 1, 0.2);
     }
 
-    th,
+    th {
+        padding: 15px;
+        gap: 14px;
+        position: relative;
+        cursor: default;
+        font-size: 12px;
+        color: black;
+    }
+
+
     td {
         padding: 15px;
+        color: GRAY;
         gap: 10px;
         position: relative;
         cursor: default;

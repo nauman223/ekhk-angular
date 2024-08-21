@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Customer } from '../models/customer';
+import { Customer, Transection } from '../models/customer';
 import { ApiService } from '../services/api.service';
 import { CustomerData } from './customer';
 
@@ -9,10 +9,12 @@ import { CustomerData } from './customer';
   styleUrls: ['./customers.component.scss']
 })
 export class CustomersComponent implements OnInit {
-  visible: boolean = true;
+  visible: boolean = false;
   customer: Customer = new Customer();
   customers: Customer[];
+  transection: Transection = new Transection();
   searchStr: string;
+  user_id: any;
   constructor(
     private api: ApiService
   ) {
@@ -22,22 +24,46 @@ export class CustomersComponent implements OnInit {
       image: "",
       description: "",
       gender: "male",
-      is_customer: true
+      is_customer: true,
+      balance: "",
+      get_or_gave: 'get'
     }
   }
 
   ngOnInit() {
+    this.user_id = JSON.parse(localStorage.getItem('user')).id;
     this.getCustomers()
   }
 
 
-  addCustomer = () => {
-    this.api.post("/customer/add", this.customer).subscribe({
-      next: res => {
+  addCustomer = async () => {
+    await this.api.post("/customer/add", this.customer).subscribe({
+      next: async res => {
         console.log('res :>> ', res);
         this.visible = false;
+        await this.addTransection(res.id)
       },
     });
+  }
+
+  addTransection = async (id) => {
+    this.transection = {
+      note: "Initial balance",
+      price: this.customer.balance,
+      image: "",
+      date: new Date(),
+      bid: "",
+      uid: this.user_id,
+      cid: id,
+      is_get: this.customer.get_or_gave === "get" ? true : false,
+    }
+    console.log('transection :>> ', this.transection);
+    await this.api.post('/transection/add', this.transection).subscribe({
+      next: res => {
+        console.log('res :>> ', res);
+      },
+    });
+
   }
 
 
@@ -49,17 +75,5 @@ export class CustomersComponent implements OnInit {
         this.visible = false;
       },
     });
-  }
-
-  importDummy = () => {
-    let cus: Customer[] = CustomerData.json;
-    CustomerData.json.forEach(f => {
-      this.api.post("/customer/add", f).subscribe({
-        next: res => {
-          console.log('res :>> ', res);
-          this.visible = false;
-        },
-      });
-    })
   }
 }

@@ -1,49 +1,9 @@
+
 a {
     text-decoration: none;
     color: #000;
     font-size: 12px;
 }
-.site-header {
-    border-bottom: 1px solid #ccc;
-    padding: 0px 15px;
-    display: flex;
-    height: 40px;
-    align-items: center;
-    justify-content: space-between;
-
-    .site-identity {
-        h1 {
-            font-size: 16px;
-            cursor: pointer;
-            display: inline-block;
-        }
-    }
-    .site-navigation ul,
-    .site-navigation li {
-        margin: 0;
-        cursor: pointer;
-        padding: 0;
-    }
-    .site-navigation {
-        li {
-            display: inline-block;
-            a {
-                i {
-                    font-size: 10px;
-                }
-                &:hover {
-                    font-weight: 600;
-                }
-            }
-        }
-    }
-    .nav {
-        display: flex;
-        justify-content: space-around;
-        gap: 10px;
-    }
-}
-
 /* Just basic CSS Reset code */
 
 .site {
@@ -133,11 +93,16 @@ a {
     margin: 3rem auto;
 
     .label {
-        font-size: 0.625rem;
-        font-weight: 400;
+        display: flex;
+        justify-content: center;
+        font-size: 12px;
         text-transform: uppercase;
-        letter-spacing: +1.3px;
         margin-bottom: 1rem;
+        font-weight: 500;
+        background-color: aliceblue;
+        height: 35px;
+        align-items: center;
+        border-radius: 50px;
     }
     .searchBar {
         width: 100%;

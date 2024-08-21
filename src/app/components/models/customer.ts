@@ -7,6 +7,8 @@ export class Customer {
     phone?: string;
     is_customer?: boolean;
     gender?: string;
+    balance?: string;
+    get_or_gave?: string;
 }
 
 

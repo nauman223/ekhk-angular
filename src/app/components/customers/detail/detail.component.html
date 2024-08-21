@@ -1,30 +1,32 @@
 <div class="container">
+
   <div class="row">
     <div class="col-md-12 my-2">
-      <div class="profile">
-        <span>w</span>
+      <div class="profile" *ngIf="customer?.name">
+        <span>{{customer?.name.charAt(0)}}</span>
         {{customer?.name}}
       </div>
     </div>
 
     <div class="col-md-12 my-3">
-      <div class="collection">
+      <div class="collection" [ngStyle]="{'backgroundColor': !balance || balance > 0 ? '#13cb1154' :'#ff000012' }">
         <span>
-          <i class="pi" [class.pi-arrow-circle-up]="balance > 0" [class.pi-arrow-circle-down]="balance < 0"></i>
-          <p>
+          <i class="pi" [class.pi-arrow-circle-up]="balance > 0" [class.pi-arrow-circle-down]="balance < 0"
+            [ngStyle]="{'color': balance > 0 ? '#3656b0' :'#ff4343' }"></i>
+          <p [ngStyle]="{'color': !balance || balance > 0 ? '#3656b0' :'#ff4343' }">
             <strong *ngIf="balance > 0" class="green">Rs.{{balance}}</strong>
             <strong *ngIf="balance < 0" class="red">Rs.{{balance * -1}}</strong>
+            <strong *ngIf="!balance" class="red">Rs.0</strong>
             <br>
-            <small>I have to get</small>
+            <small *ngIf="!balance">Balance clear</small>
+            <small *ngIf="balance > 0" [ngStyle]="{'color': balance > 0 ? '#3656b0' :'#ff4343' }">I have to get</small>
+            <small *ngIf="balance < 0" [ngStyle]="{'color': balance > 0 ? '#3656b0' :'#ff4343' }">I have to gave</small>
           </p>
         </span>
 
         <div class="btns">
-          <button class="gave" (click)="visible=true">
-            <i class="pi pi-arrow-down"></i> I Gave
-          </button>
-          <button class="got" (click)="visible=true">
-            <i class="pi pi-arrow-up"></i> I Got
+          <button class="gave" style="background-color: #b03636;" (click)="visible=true">
+            Add Transection
           </button>
         </div>
 

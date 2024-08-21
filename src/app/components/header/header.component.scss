@@ -1,0 +1,53 @@
+.site-header {
+    // border-bottom: 1px solid #ccc;
+    padding: 0px 15px;
+    display: flex;
+    margin: 6px 0;
+    border-radius: 2px;
+    height: 45px;
+    align-items: center;
+    justify-content: space-between;
+    background-color: rgb(5 45 73 / 88%);
+    color: white;
+
+    .site-identity {
+        h1 {
+            font-size: 14px;
+            margin: 0;
+            display: flex;
+            gap: 4px;
+            justify-content: center;
+            align-items: center;
+            i {
+                font-size: 12px;
+            }
+        }
+    }
+    .site-navigation ul,
+    .site-navigation li {
+        margin: 0;
+        cursor: pointer;
+        padding: 0;
+    }
+    .site-navigation {
+        li {
+            display: inline-block;
+            a {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                gap: 6px;
+
+                &:hover {
+                    font-weight: 400;
+                    color: aqua;
+                }
+            }
+        }
+    }
+    .nav {
+        display: flex;
+        justify-content: space-around;
+        gap: 16px;
+    }
+}
