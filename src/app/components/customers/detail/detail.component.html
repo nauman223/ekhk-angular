@@ -1,47 +1,126 @@
 <div class="container">
-
   <div class="row">
     <div class="col-md-12 my-2">
       <div class="profile" *ngIf="customer?.name">
-        <span>{{customer?.name.charAt(0)}}</span>
-        {{customer?.name}}
+        <span>{{ customer?.name.charAt(0) }}</span>
+        {{ customer?.name }}
       </div>
     </div>
 
     <div class="col-md-12 my-3">
-      <div class="collection" [ngStyle]="{'backgroundColor': !balance || balance > 0 ? '#13cb1154' :'#ff000012' }">
+      <div
+        class="collection"
+        [ngStyle]="{
+          backgroundColor: !balance || balance > 0 ? '#13cb1154' : '#ff000012'
+        }"
+      >
         <span>
-          <i class="pi" [class.pi-arrow-circle-up]="balance > 0" [class.pi-arrow-circle-down]="balance < 0"
-            [ngStyle]="{'color': balance > 0 ? '#3656b0' :'#ff4343' }"></i>
-          <p [ngStyle]="{'color': !balance || balance > 0 ? '#3656b0' :'#ff4343' }">
-            <strong *ngIf="balance > 0" class="green">Rs.{{balance}}</strong>
-            <strong *ngIf="balance < 0" class="red">Rs.{{balance * -1}}</strong>
+          <i
+            class="pi"
+            [class.pi-arrow-circle-up]="balance > 0"
+            [class.pi-arrow-circle-down]="balance < 0"
+            [ngStyle]="{ color: balance > 0 ? '#3656b0' : '#ff4343' }"
+          ></i>
+          <p
+            [ngStyle]="{
+              color: !balance || balance > 0 ? '#3656b0' : '#ff4343'
+            }"
+          >
+            <strong *ngIf="balance > 0" class="green">Rs.{{ balance }}</strong>
+            <strong *ngIf="balance < 0" class="red"
+              >Rs.{{ balance * -1 }}</strong
+            >
             <strong *ngIf="!balance" class="red">Rs.0</strong>
-            <br>
+            <br />
             <small *ngIf="!balance">Balance clear</small>
-            <small *ngIf="balance > 0" [ngStyle]="{'color': balance > 0 ? '#3656b0' :'#ff4343' }">I have to get</small>
-            <small *ngIf="balance < 0" [ngStyle]="{'color': balance > 0 ? '#3656b0' :'#ff4343' }">I have to gave</small>
+            <small
+              *ngIf="balance > 0"
+              [ngStyle]="{ color: balance > 0 ? '#3656b0' : '#ff4343' }"
+              >I have to get</small
+            >
+            <small
+              *ngIf="balance < 0"
+              [ngStyle]="{ color: balance > 0 ? '#3656b0' : '#ff4343' }"
+              >I have to gave</small
+            >
           </p>
         </span>
 
         <div class="btns">
-          <button class="gave" style="background-color: #b03636;" (click)="visible=true">
+          <button
+            class="gave"
+            style="background-color: #ff4343; color: rgb(255, 255, 255)"
+            (click)="visible = true"
+          >
             Add Transection
           </button>
-        </div>
+          <!-- seprate -->
+          <button (click)="openModal()">Use Calculator</button>
 
+          <div *ngIf="isModalOpen" class="modal">
+            <div class="modal-content">
+              <span class="close" (click)="closeModal()">&times;</span>
+              <div class="row">
+                <div class="calculator">
+                  <div class="setup">
+                    <input
+                      type="text"
+                      class="calculator-screen my-2"
+                      [value]="display"
+                      disabled
+                    />
+                    <div class="calculator-keys">
+                      <div class="clc_no my-1">
+                        <button (click)="appendNumber('7')">7</button>
+                        <button (click)="appendNumber('8')">8</button>
+                        <button (click)="appendNumber('9')">9</button>
+                        <button (click)="chooseOperation('/')">
+                          <strong>/</strong>
+                        </button>
+                      </div>
+                      <div class="clc_no my-1">
+                        <button (click)="appendNumber('4')">4</button>
+                        <button (click)="appendNumber('5')">5</button>
+                        <button (click)="appendNumber('6')">6</button>
+                        <button (click)="chooseOperation('*')">
+                          <strong>*</strong>
+                        </button>
+                      </div>
+                      <div class="clc_no my-1">
+                        <button (click)="appendNumber('1')">1</button>
+                        <button (click)="appendNumber('2')">2</button>
+                        <button (click)="appendNumber('3')">3</button>
+                        <button (click)="chooseOperation('-')">
+                          <strong>-</strong>
+                        </button>
+                      </div>
+                      <div class="clc_no my-1">
+                        <button (click)="appendNumber('0')">0</button>
+                        <button (click)="appendNumber('.')">
+                          <strong>.</strong>
+                        </button>
+                        <button (click)="compute()">=</button>
+                        <button (click)="chooseOperation('+')">
+                          <strong>+</strong>
+                        </button>
+                      </div>
+                      <div class="clc_no my-1">
+                        <button (click)="clear()">C</button>
+                        <button></button>
+                        <button></button>
+                        <button></button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
 
-
-
-
-
-
-
-
     <div class="col-12">
-
       <table>
         <thead>
           <tr>
@@ -53,62 +132,50 @@
           </tr>
         </thead>
         <tbody>
-
           <ng-container *ngFor="let item of transections">
             <tr>
               <td>
-                {{item.date | date: 'fullDate'}}
+                {{ item.date | date : "fullDate" }}
               </td>
               <td>
-                {{item.note}}
+                {{ item.note }}
               </td>
               <td>
-                {{!item.is_get ? 'Rs.'+item.price: ''}}
+                {{ !item.is_get ? "Rs." + item.price : "" }}
               </td>
               <td>
-                {{item.is_get ? 'Rs.'+item.price: ''}}
+                {{ item.is_get ? "Rs." + item.price : "" }}
               </td>
               <td>
-                <span *ngIf="item.balance > 0" class="green">Rs.{{item.balance}}</span>
-                <span *ngIf="item.balance < 0" class="red">Rs.{{item.balance * -1}}</span>
-
+                <span *ngIf="item.balance > 0" class="green"
+                  >Rs.{{ item.balance }}</span
+                >
+                <span *ngIf="item.balance < 0" class="red"
+                  >Rs.{{ item.balance * -1 }}</span
+                >
               </td>
             </tr>
           </ng-container>
-
-
         </tbody>
       </table>
-
     </div>
-
-
-
-
-
-
-
   </div>
 </div>
 
-
-
-
-
-
-
-
-
-
-
-<p-dialog header="Add Transection" [(visible)]="visible" [style]="{width: '300px'}">
+<p-dialog
+  header="Add Transection"
+  [(visible)]="visible"
+  [style]="{ width: '300px' }"
+>
   <div class="verticle_form">
-
-
-
     <label for="">
       Price
-      <input name="Name" placeholder="Price" type="number" [(ngModel)]="transection.price" />
+      <input
+        name="Name"
+        placeholder="Price"
+        type="number"
+        [(ngModel)]="transection.price"
+      />
     </label>
 
     <label for="">
@@ -116,18 +183,18 @@
       <textarea [(ngModel)]="transection.note"></textarea>
     </label>
 
-    <div class="flexo mb-3" style="justify-content: flex-end;">
-      <button class="gave" (click)="transection.is_get = false;addTransection()">
+    <div class="flexo mb-3" style="justify-content: flex-end">
+      <button
+        class="gave"
+        (click)="transection.is_get = false; addTransection()"
+      >
         <i class="pi pi-arrow-down"></i> I Gave
       </button>
-      <button class="got" (click)="transection.is_get = true;addTransection()">
+      <button class="got" (click)="transection.is_get = true; addTransection()">
         <i class="pi pi-arrow-up"></i> I Got
       </button>
     </div>
 
-
-
     <!-- <button class="btn">Add Customer</button> -->
-
   </div>
 </p-dialog>

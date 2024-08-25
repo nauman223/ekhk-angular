@@ -1,5 +1,5 @@
 <div class="box_e">
-  <div class="container_ " [class.active]="isSubmitted" [class.log-in]="isLogin">
+  <div class="container_" [class.active]="isSubmitted" [class.log-in]="isLogin">
     <div class="box"></div>
     <div class="container_forms">
       <div class="container-info">
@@ -21,66 +21,58 @@
         </div>
       </div>
 
-
       <div class="container_form">
-
-
-
-
-
-
-
         <div class="form-item log-in">
           <div class="table">
             <div class="table-cell">
+              <input
+                name="Email"
+                [(ngModel)]="loginUser.email"
+                placeholder="Email"
+                type="text"
+              />
 
-              <input name="Email" [(ngModel)]="loginUser.email" placeholder="Email" type="text" />
-
-              <input name="Password" [(ngModel)]="loginUser.password" placeholder="Password" type="password" />
+              <input
+                name="Password"
+                [(ngModel)]="loginUser.password"
+                placeholder="Password"
+                type="password"
+              />
 
               <div class="btn_" (click)="loginHandler(loginUser)">Log in</div>
-
             </div>
           </div>
         </div>
-
-
-
-
-
-
-
-
-
 
         <div class="form-item sign-up">
           <div class="table">
             <div class="table-cell">
+              <input
+                name="email"
+                placeholder="Email"
+                type="text"
+                [(ngModel)]="registerUser.email"
+              />
 
-              <input name="email" placeholder="Email" type="text" [(ngModel)]="registerUser.email" />
+              <input
+                name="fullName"
+                placeholder="Full Name"
+                type="text"
+                [(ngModel)]="registerUser.full_name"
+              />
 
-              <input name="fullName" placeholder="Full Name" type="text"  [(ngModel)]="registerUser.full_name" />
-
-              <input name="Password" placeholder="Password" type="Password"  [(ngModel)]="registerUser.password" />
+              <input
+                name="Password"
+                placeholder="Password"
+                type="Password"
+                [(ngModel)]="registerUser.password"
+              />
 
               <div class="btn_" (click)="registerHandler()">Sign up</div>
-
             </div>
           </div>
         </div>
       </div>
-
-
-
-
-
-
-
-
-
-
-
-
     </div>
   </div>
 </div>

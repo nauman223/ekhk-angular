@@ -7,10 +7,9 @@ import { ApiService } from '../../services/api.service';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss']
+  styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent implements OnInit {
-
   isSubmitted: boolean = false;
   isLogin: boolean = false;
 
@@ -40,9 +39,9 @@ export class LoginComponent implements OnInit {
   }
 
   loginHandler = (loginUser: Login) => {
-    console.log(`loginUser`, loginUser); 
+    console.log(`loginUser`, loginUser);
     this.authService.loginUser(loginUser).subscribe({
-      next: res => {
+      next: (res) => {
         if (res && res.tokens && res.tokens.accessToken) {
           localStorage.setItem('token', res.tokens.accessToken);
           localStorage.setItem('user', JSON.stringify(res.user));
@@ -50,19 +49,18 @@ export class LoginComponent implements OnInit {
           this.isSubmitted = true;
         }
       },
-      error: error => console.error(error),
-      complete: () => {}
+      error: (error) => console.error(error),
+      complete: () => {},
     });
   };
 
-  
   registerHandler = () => {
-    this.api.post('/user/add',this.registerUser).subscribe({
-      next: res => {
+    this.api.post('/user/add', this.registerUser).subscribe({
+      next: (res) => {
         this.isSubmitted = true;
       },
-      error: error => console.error(error),
-      complete: () => {}
+      error: (error) => console.error(error),
+      complete: () => {},
     });
   };
 }

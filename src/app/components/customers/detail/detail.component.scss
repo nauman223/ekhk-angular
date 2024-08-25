@@ -1,145 +1,223 @@
 .profile {
+  display: flex;
+  align-items: center;
+  justify-content: left;
+  gap: 10px;
+  span {
     display: flex;
+    border-radius: 50%;
     align-items: center;
-    justify-content: left;
-    gap: 10px;
-    span {
-        display: flex;
-        border-radius: 50%;
-        align-items: center;
-        font-size: 12px;
-        justify-content: center;
-        padding: 5px;
-        background-color: aquamarine;
-        width: 30px;
-    }
+    font-size: 12px;
+    justify-content: center;
+    padding: 5px;
+    background-color: aquamarine;
+    width: 30px;
+  }
 }
 
 .collection {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 15px;
+  border-radius: 6px;
+  span {
     display: flex;
-    justify-content: space-between;
     align-items: center;
-    padding: 10px 15px;
-    border-radius: 6px; 
-    span {
-        display: flex;
-        align-items: center;
-        gap: 10px;
-        i {
-            color: red;
-        }
-        p {
-            font-size: 10px;
-            margin-bottom: 0;
-            color: red;
-            line-height: 1.2;
-        }
+    gap: 10px;
+    i {
+      color: red;
     }
-    .btns {
-        display: flex;
-        font-size: 12px;
-        gap: 6px;
-        padding: 8px;
-        border-radius: 12px;
+    p {
+      font-size: 10px;
+      margin-bottom: 0;
+      color: red;
+      line-height: 1.2;
+    }
+  }
+  .btns {
+    display: flex;
+    font-size: 12px;
+    gap: 6px;
+    padding: 8px;
+    border-radius: 12px;
 
-        button {
-            cursor: pointer;
-            border: 0px solid #c9c3c3;
-            background-color: transparent;
-            border-radius: 6px;
-            font-size: 12px;
-            color: #fff;
-            padding: 5px 15px;
-            i {
-                font-size: 9px;
-                font-weight: bolder;
-                margin-right: 5px;
-                line-height: 0;
-            }
+    .modal {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: fixed; /* Stays in place on the screen */
+      z-index: 1000; /* Sits on top of other content */
+      left: 0;
+      top: 0;
+      width: 100%; /* Full width */
+      height: 100%; /* Full height */
+      background-color: rgba(0, 0, 0, 0.5); /* Black background with opacity */
+      .calculator {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      .setup {
+        padding: 10px;
+        background-color: rgba(127, 255, 249, 0.211);
+        margin-top: 2rem;
+      }
+      .calculator-screen {
+        height: 50px;
+        width: 100%;
+        background-color: #252525;
+        color: white;
+        text-align: right;
+        padding-right: 10px;
+        padding-left: 10px;
+        font-size: 16px;
+      }
+
+      .calculator-keys {
+        display: flex;
+        flex-direction: column;
+
+        .clc_no {
+          display: flex;
+          justify-content: space-between;
+          gap: 8px;
         }
-        .gave {
-            background-color: #ff4343;
-        }
-        .got {
-            background-color: #13cb11;
-        }
+      }
+
+      .calculator-keys button {
+        height: 40px;
+        width: 50%;
+        color: black;
+        background-color: #f2f2f2;
+        border: none;
+        font-size: 1.5rem;
+        border-radius: 5px;
+        box-shadow: 0px 3px 3px 0px rgba(0, 0, 0, 0.2);
+        cursor: pointer;
+      }
+
+      .calculator-keys button:active {
+        box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.2);
+      }
     }
+
+    .modal-content {
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 8px;
+      width: 300px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+      position: relative; /* For positioning close button */
+      text-align: center;
+    }
+
+    .close {
+      position: absolute;
+      top: 10px;
+      right: 15px;
+      font-size: 20px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    button {
+      cursor: pointer;
+      border: 0px solid #c9c3c3;
+      background-color: rgba(0, 85, 155, 0.548);
+      border-radius: 8px;
+      font-size: 12px;
+      color: #fff;
+      padding: 5px 15px;
+      i {
+        font-size: 9px;
+        font-weight: bolder;
+        margin-right: 5px;
+        line-height: 0;
+      }
+    }
+    .gave {
+      background-color: #ff4343;
+    }
+    .got {
+      background-color: #13cb11;
+    }
+  }
 }
 
 table {
-    margin: auto;
-    border-radius: 8px;
-    width: 100%;
-    overflow: hidden;
-    background-color: #fff;
-    border-radius: 10px;
+  margin: auto;
+  border-radius: 8px;
+  width: 100%;
+  overflow: hidden;
+  background-color: #fff;
+  border-radius: 10px;
+  position: relative;
+  border-collapse: collapse;
+  z-index: 1;
+  color: #2b3c56;
+  white-space: nowrap;
+
+  tbody tr:not(:last-child) {
+    border-bottom: 1px solid rgba(1, 1, 1, 0.2);
+  }
+
+  th {
+    padding: 15px;
+    gap: 14px;
     position: relative;
-    border-collapse: collapse;
-    z-index: 1;
-    color: #2b3c56;
-    white-space: nowrap;
+    cursor: default;
+    font-size: 12px;
+    color: black;
+  }
 
-    tbody tr:not(:last-child) {
-        border-bottom: 1px solid rgba(1, 1, 1, 0.2);
+  td {
+    padding: 15px;
+    color: GRAY;
+    gap: 10px;
+    position: relative;
+    cursor: default;
+    font-size: 12px;
+  }
+
+  td,
+  tr:first-child th {
+    border-bottom: 1px solid #9f9f9f;
+  }
+
+  td {
+    font-weight: 500;
+    &:nth-last-child(3) {
+      color: #ff4343;
     }
+    &:nth-last-child(2) {
+      color: #60ca60;
+    }
+    &:last-child {
+      color: #60ca60;
+    }
+  }
 
+  .red {
+    color: #ff4343;
+  }
+  .green {
+    color: #60ca60;
+  }
+
+  thead {
+    background-color: #0000000a;
     th {
-        padding: 15px;
-        gap: 14px;
-        position: relative;
-        cursor: default;
-        font-size: 12px;
-        color: black;
+      text-transform: uppercase;
+      font-weight: 500;
     }
+  }
 
+  tr:hover {
+    background-color: #f9f9f9;
+  }
 
-    td {
-        padding: 15px;
-        color: GRAY;
-        gap: 10px;
-        position: relative;
-        cursor: default;
-        font-size: 12px;
-    }
-
-    td,
-    tr:first-child th {
-        border-bottom: 1px solid #9f9f9f;
-    }
-
-    td {
-        font-weight: 500;
-        &:nth-last-child(3) {
-            color: #ff4343;
-        }
-        &:nth-last-child(2) {
-            color: #60ca60;
-        }
-        &:last-child {
-            color: #60ca60;
-        }
-    }
-
-    .red {
-        color: #ff4343;
-    }
-    .green {
-        color: #60ca60;
-    }
-
-    thead {
-        background-color: #0000000a;
-        th {
-            text-transform: uppercase;
-            font-weight: 500;
-        }
-    }
-
-    tr:hover {
-        background-color: #f9f9f9;
-    }
-
-    table a {
-        color: #2b3c56;
-    }
+  table a {
+    color: #2b3c56;
+  }
 }

@@ -6,9 +6,73 @@ import { Customer, Transection } from '../../models/customer';
 @Component({
   selector: 'app-detail',
   templateUrl: './detail.component.html',
-  styleUrls: ['./detail.component.scss']
+  styleUrls: ['./detail.component.scss'],
 })
 export class DetailComponent implements OnInit {
+  display = '';
+  currentNumber = '';
+  previousNumber = '';
+  operator = '';
+
+  appendNumber(number: string) {
+    if (number === '.' && this.currentNumber.includes('.')) return;
+    this.currentNumber += number;
+    this.display = this.currentNumber;
+  }
+
+  chooseOperation(operation: string) {
+    if (this.currentNumber === '') return;
+    if (this.previousNumber !== '') {
+      this.compute();
+    }
+    this.operator = operation;
+    this.previousNumber = this.currentNumber;
+    this.currentNumber = '';
+  }
+
+  compute() {
+    let computation;
+    const prev = parseFloat(this.previousNumber);
+    const current = parseFloat(this.currentNumber);
+    if (isNaN(prev) || isNaN(current)) return;
+    switch (this.operator) {
+      case '+':
+        computation = prev + current;
+        break;
+      case '-':
+        computation = prev - current;
+        break;
+      case '*':
+        computation = prev * current;
+        break;
+      case '/':
+        computation = prev / current;
+        break;
+      default:
+        return;
+    }
+    this.currentNumber = computation.toString();
+    this.operator = '';
+    this.previousNumber = '';
+    this.display = this.currentNumber;
+  }
+
+  clear() {
+    this.currentNumber = '';
+    this.previousNumber = '';
+    this.operator = '';
+    this.display = '';
+  }
+
+  isModalOpen = false;
+
+  openModal() {
+    this.isModalOpen = true; // Open the modal
+  }
+
+  closeModal() {
+    this.isModalOpen = false; // Close the modal
+  }
 
   customer: Customer = new Customer();
   transection: Transection = new Transection();
@@ -17,114 +81,112 @@ export class DetailComponent implements OnInit {
   user_id: any;
   balance: number = 0;
 
-  constructor(
-    public route: ActivatedRoute,
-    private api: ApiService
-  ) {
-  }
+  constructor(public route: ActivatedRoute, private api: ApiService) {}
 
   ngOnInit() {
     this.user_id = JSON.parse(localStorage.getItem('user')).id;
     this.route.params.subscribe((params) => {
-      let id = params["id"];
+      let id = params['id'];
       if (id) {
         this.loadCustomer(id);
       }
     });
   }
 
-
   loadCustomer = (id: any) => {
-    this.api.post("/customer/customer", { id: id }).subscribe({
-      next: res => {
+    this.api.post('/customer/customer', { id: id }).subscribe({
+      next: (res) => {
         this.customer = res;
         console.log('this.customers :>> ', this.customer);
         this.transection = {
-          note: "",
-          price: "",
-          image: "",
+          note: '',
+          price: '',
+          image: '',
           date: new Date(),
-          bid: "",
+          bid: '',
           uid: this.user_id,
           cid: this.customer.id,
           is_get: false,
-        }
-        this.balance = parseFloat(this.customer.balance) * (this.customer.get_or_gave === "gave" ? -1 : 1);
+        };
+        this.balance =
+          parseFloat(this.customer.balance) *
+          (this.customer.get_or_gave === 'gave' ? -1 : 1);
         console.log('transection :>> ', this.transection);
         this.loadTransection();
       },
     });
-  }
-
+  };
 
   loadTransection = () => {
-    this.api.post("/transection", {
-      uid: this.user_id,
-      cid: this.customer.id,
-    }).subscribe({
-      next: res => {
-        console.log('transection :>> ', res);
-        this.transections = res;
+    this.api
+      .post('/transection', {
+        uid: this.user_id,
+        cid: this.customer.id,
+      })
+      .subscribe({
+        next: (res) => {
+          console.log('transection :>> ', res);
+          this.transections = res;
 
-        this.transections?.length > 0 ? this.transections.forEach((f, i) => {
-          if (i === 0) {
-            f.balance = f.price;
-            this.balance = f.balance * (f.is_get ? 1 : -1);
-            return;
-          }
-          if (f.is_get) {
-            f.balance = parseFloat(this.transections[i - 1].balance) - parseFloat(f.price)
-          }
-          if (!f.is_get) {
-            f.balance = parseFloat(this.transections[i - 1].balance) + parseFloat(f.price)
-          }
+          this.transections?.length > 0
+            ? this.transections.forEach((f, i) => {
+                if (i === 0) {
+                  f.balance = f.price;
+                  this.balance = f.balance * (f.is_get ? 1 : -1);
+                  return;
+                }
+                if (f.is_get) {
+                  f.balance =
+                    parseFloat(this.transections[i - 1].balance) -
+                    parseFloat(f.price);
+                }
+                if (!f.is_get) {
+                  f.balance =
+                    parseFloat(this.transections[i - 1].balance) +
+                    parseFloat(f.price);
+                }
 
-          if (this.transections.length - 1 === i) {
-            this.balance = f.balance;
-          }
+                if (this.transections.length - 1 === i) {
+                  this.balance = f.balance;
+                }
+              })
+            : null;
 
-        }) : null;
+          this.transections = this.transections.reverse();
 
-        this.transections = this.transections.reverse();
-
-        setTimeout(() => {
-          this.updateCustomreBalance();
-        }, 10);
-
-      },
-    });
-  }
-
+          setTimeout(() => {
+            this.updateCustomreBalance();
+          }, 10);
+        },
+      });
+  };
 
   addTransection = () => {
     console.log('transection :>> ', this.transection);
 
     this.api.post('/transection/add', this.transection).subscribe({
-      next: res => {
+      next: (res) => {
         console.log('res :>> ', res);
         this.visible = false;
         this.route.params.subscribe((params) => {
-          let id = params["id"];
+          let id = params['id'];
           if (id) {
-            this.loadTransection(); 
+            this.loadTransection();
           }
         });
       },
     });
-
-  }
-
+  };
 
   updateCustomreBalance = () => {
-
-    this.api.post('/customer/update_balance', {
-      id: this.customer.id,
-      balance: this.balance,
-      get_or_gave: this.balance < 0 ? "gave" : "get"
-    }).subscribe({
-      next: res => { }
-    })
-
-  }
-
+    this.api
+      .post('/customer/update_balance', {
+        id: this.customer.id,
+        balance: this.balance,
+        get_or_gave: this.balance < 0 ? 'gave' : 'get',
+      })
+      .subscribe({
+        next: (res) => {},
+      });
+  };
 }
